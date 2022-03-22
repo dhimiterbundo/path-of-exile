@@ -8,17 +8,18 @@ import { MaterialModule } from './material-module/material-module.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
+import { GameModule } from './game/game.module';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    GameModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    MaterialModule,
     HttpClientModule,
     FlexLayoutModule,
     CommonModule

@@ -4,6 +4,5 @@ const baseApi = environment.apiBaseUrl;
 
 
 export const ApiUrlsConfig = {
-
-  game: () => `${baseApi}/blogPosts`
+  publicStashTabs: (id: string) => `${baseApi}/public-stash-tabs?id=${id}`
 };
