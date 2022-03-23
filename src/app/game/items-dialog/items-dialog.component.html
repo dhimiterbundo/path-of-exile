@@ -1,32 +1,48 @@
 <h1 mat-dialog-title>Items of This Stash</h1>
-<div mat-dialog-content fxLayout="row wrap">
+<div mat-dialog-content class="filter-form">
+  <form class="example-form" [formGroup]="filters">
+    <mat-form-field appearance="outline">
+      <mat-label>Item Name</mat-label>
+      <input matInput placeholder="Enter Item Name" formControlName="itemName">
+    </mat-form-field>
 
-  <div *ngFor="let el of data" fxFlex="30%" class="card">
+    <button mat-button color="primary" (click)="clearFilters()">Clear Filters</button>
+  </form>
 
-    <mat-card>
-      <p>{{el.name? el.name : 'Name Not Present'}}</p>
-      <img [src]="el.icon" width="50px" height="50px">
+  <div fxLayout="row wrap">
+    <div *ngFor="let el of items" fxFlex="30%" class="card">
 
-      <ng-container *ngIf="el.descrText || el.secDescrText || el.typeLine">
-        <p>{{el.descrText}}</p>
-        <p>{{el.secDescrText}}</p>
-        <p>{{el.typeLine}}</p>
-      </ng-container>
+      <mat-card>
+        <p>{{el.name? el.name : 'Name Not Present'}}</p>
+        <img [src]="el.icon" width="50px" height="50px">
 
-      <ng-container *ngIf="el.implicitMods">
-        <h3>Implicit Mods</h3>
-        <ul>
-          <li *ngFor="let implicitMods of el.implicitMods">{{implicitMods}}</li>
-        </ul>
-      </ng-container>
+        <ng-container *ngIf="el.descrText || el.secDescrText || el.typeLine">
+          <p>{{el.descrText}}</p>
+          <p>{{el.secDescrText}}</p>
+          <p>{{el.typeLine}}</p>
+        </ng-container>
 
-      <ng-container *ngIf="el.explicitMods">
-        <h3>Explicit Mods</h3>
-        <ul>
-          <li *ngFor="let explicitMods of el.explicitMods">{{explicitMods}}</li>
-        </ul>
-      </ng-container>
-    </mat-card>
+        <ng-container *ngIf="el.implicitMods">
+          <h3>Implicit Mods</h3>
+          <ul>
+            <li *ngFor="let implicitMods of el.implicitMods">{{implicitMods}}</li>
+          </ul>
+        </ng-container>
+
+        <ng-container *ngIf="el.explicitMods">
+          <h3>Explicit Mods</h3>
+          <ul>
+            <li *ngFor="let explicitMods of el.explicitMods">{{explicitMods}}</li>
+          </ul>
+        </ng-container>
+        <ng-container *ngIf="el.flavourText">
+          <h3>Flavour Text</h3>
+          <ul>
+            <li *ngFor="let flavourText of el.flavourText">{{flavourText}}</li>
+          </ul>
+        </ng-container>
+      </mat-card>
+    </div>
   </div>
 </div>
 <div mat-dialog-actions class="actions">

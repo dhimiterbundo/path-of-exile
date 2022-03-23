@@ -13,9 +13,9 @@ import { MatSelectChange } from '@angular/material/select';
   styleUrls: ['./search-page.component.scss']
 })
 export class SearchPageComponent implements OnInit {
-  dataSource!: any;
+  dataSource!: Stash[];
   stashes$: Observable<ResponseModel>;
-  columndefs: any[] = ['stashType', 'league', 'accountName', 'items', 'actions'];
+  columndefs: string[] = ['stashType', 'league', 'accountName', 'items', 'actions'];
   nextChangeId: string = null;
   filters: FormGroup;
   leagues: string[] = [];
