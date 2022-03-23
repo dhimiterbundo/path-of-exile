@@ -24,9 +24,9 @@ export class ItemsDialogComponent implements OnInit {
   ngOnInit(): void {
     this.items = this.data;
     this.buildFormGroup();
-    this.filters.controls.itemName.valueChanges.subscribe(x => {
-      if (x) {
-        this.items = this.data.filter(c => c.name.includes(x));
+    this.filters.controls.itemName.valueChanges.subscribe(name => {
+      if (name) {
+        this.items = this.data.filter(el => el.name.includes(name));
       } else {
         this.items = this.data;
       }

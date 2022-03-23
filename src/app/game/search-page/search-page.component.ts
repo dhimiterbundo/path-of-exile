@@ -30,9 +30,9 @@ export class SearchPageComponent implements OnInit {
     setInterval(() => {
       this.prepareDataSource();
     }, 30000);
-    this.filters.controls.itemName.valueChanges.subscribe(x => {
+    this.filters.controls.itemName.valueChanges.subscribe(name => {
       this.stashes$.pipe().subscribe((data) => {
-        this.dataSource = data.stashes.filter(cl => cl.items.some(c => c.name.includes(x)));
+        this.dataSource = data.stashes.filter(el => el.items.some(item => item.name.includes(name)));
       });
     });
   }
