@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemsDialogComponent } from '../items-dialog/items-dialog.component';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-search-page',
@@ -15,19 +17,24 @@ export class SearchPageComponent implements OnInit {
   stashes$: Observable<ResponseModel>;
   columndefs: any[] = ['stashType', 'league', 'accountName', 'items', 'actions'];
   nextChangeId: string = null;
-
-  shtashItems: Stash[] = [];
+  filters: FormGroup;
   leagues: string[] = [];
   constructor(
     private gameService: GameService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private fb: FormBuilder
   ) { }
-
   ngOnInit(): void {
+    this.buildFormGroup();
     this.prepareDataSource();
     setInterval(() => {
       this.prepareDataSource();
     }, 30000);
+    this.filters.controls.itemName.valueChanges.subscribe(x => {
+      this.stashes$.pipe().subscribe((data) => {
+        this.dataSource = data.stashes.filter(cl => cl.items.some(c => c.name.includes(x)));
+      });
+    });
   }
 
   prepareDataSource(): void {
@@ -45,21 +52,28 @@ export class SearchPageComponent implements OnInit {
     });
   }
 
+  buildFormGroup(): void {
+    this.filters = this.fb.group({
+      league: new FormControl(''),
+      itemName: new FormControl('')
+    });
+  }
   getData(): Observable<ResponseModel> {
     return this.gameService.getPublicStashTabs(this.nextChangeId).pipe();
   }
-  filterStashes(event: any): void {
+  filterStashes(event: MatSelectChange): void {
     this.stashes$.pipe().subscribe((data) => {
-      if (event.value === 'Not Specified') {
+      if (event.value && event.value === 'Not Specified') {
         this.dataSource = data.stashes.filter(el => el.league === null);
       }
-      else {
+      else if (event.value) {
         this.dataSource = data.stashes.filter(el => el.league === event.value);
       }
     });
   }
 
   clearFilters(): void {
+    this.filters.reset();
     this.stashes$.pipe().subscribe((data) => {
       this.dataSource = data.stashes;
     });
@@ -67,7 +81,7 @@ export class SearchPageComponent implements OnInit {
 
   openDialog(items: Item[]): void {
     const dialogRef = this.dialog.open(ItemsDialogComponent, {
-      width: '50%',
+      width: '80%',
       data: items,
     });
 
