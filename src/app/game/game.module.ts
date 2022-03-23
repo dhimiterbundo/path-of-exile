@@ -4,11 +4,12 @@ import { SearchPageComponent } from './search-page/search-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '../shared/shared.module';
+import { ItemsDialogComponent } from './items-dialog/items-dialog.component';
 
 
 
 @NgModule({
-  declarations: [SearchPageComponent],
+  declarations: [SearchPageComponent, ItemsDialogComponent],
   imports: [
     SharedModule,
     HttpClientModule,

@@ -37,7 +37,17 @@
 
       <ng-container matColumnDef="items">
         <th mat-header-cell *matHeaderCellDef> List of Items </th>
-        <td mat-cell *matCellDef="let element"> <span *ngFor="let item of element.items"> {{item?.name}}   </span> </td>
+        <td mat-cell *matCellDef="let element"> <span *ngFor="let el of element.items"> <img [src]="el.icon" width="50px" height="50px"> </span> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button color="primary" class="pointer" [disabled]="!element?.items?.length"
+            (click)="openDialog(element.items)">
+            <mat-icon>open_in_new</mat-icon>
+          </button>
+        </td>
       </ng-container>
 
     </mat-table>

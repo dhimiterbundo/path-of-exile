@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Items of This Stash</h1>
+<div mat-dialog-content fxLayout="row wrap">
+
+  <div *ngFor="let el of data" fxFlex="30%" class="card">
+
+    <mat-card>
+      <p>{{el.name? el.name : 'Name Not Present'}}</p>
+      <img [src]="el.icon" width="50px" height="50px">
+
+      <ng-container *ngIf="el.descrText || el.secDescrText || el.typeLine">
+        <p>{{el.descrText}}</p>
+        <p>{{el.secDescrText}}</p>
+        <p>{{el.typeLine}}</p>
+      </ng-container>
+
+      <ng-container *ngIf="el.implicitMods">
+        <h3>Implicit Mods</h3>
+        <ul>
+          <li *ngFor="let implicitMods of el.implicitMods">{{implicitMods}}</li>
+        </ul>
+      </ng-container>
+
+      <ng-container *ngIf="el.explicitMods">
+        <h3>Explicit Mods</h3>
+        <ul>
+          <li *ngFor="let explicitMods of el.explicitMods">{{explicitMods}}</li>
+        </ul>
+      </ng-container>
+    </mat-card>
+  </div>
+</div>
+<div mat-dialog-actions class="actions">
+  <button mat-button (click)="onNoClick()">Close</button>
+</div>

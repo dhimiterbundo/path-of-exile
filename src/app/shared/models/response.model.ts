@@ -15,4 +15,5 @@ export interface Item {
   id: string;
   name: string;
   typeLine: string;
+  icon: string;
 }
