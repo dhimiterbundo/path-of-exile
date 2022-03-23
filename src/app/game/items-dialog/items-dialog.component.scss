@@ -11,5 +11,13 @@
   img{
     margin-left: 30%;
   }
+}
 
+.example-form {
+  min-width: 150px;
+  width: 100%;
+  margin-bottom: 15px;
+  mat-form-field{
+    margin-right: 15px
+  }
 }

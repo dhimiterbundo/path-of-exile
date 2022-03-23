@@ -16,7 +16,7 @@
        <input matInput placeholder="Enter Item Name" formControlName="itemName" >
       </mat-form-field>
 
-      <button mat-button color="primary" (click)="clearFilters()">Clear Filters</button>
+      <button mat-button color="primary" [disabled]="!filters.dirty" (click)="clearFilters()">Clear Filters</button>
     </form>
   </div>
 

@@ -6,7 +6,7 @@
       <input matInput placeholder="Enter Item Name" formControlName="itemName">
     </mat-form-field>
 
-    <button mat-button color="primary" (click)="clearFilters()">Clear Filters</button>
+    <button mat-button color="primary" (click)="clearFilters()" [disabled]="!filters.dirty">Clear Filters</button>
   </form>
 
   <div fxLayout="row wrap">
@@ -43,6 +43,9 @@
         </ng-container>
       </mat-card>
     </div>
+    <ng-container *ngIf="!items.length">
+    <h3>No Item include those characters on name!</h3>
+    </ng-container>
   </div>
 </div>
 <div mat-dialog-actions class="actions">
